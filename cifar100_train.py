@@ -16,7 +16,7 @@ def get_model():
     x = MaxPool2D()(x)
     x = Flatten()(x)
 #     x = Dense(100,activation='relu')(x)
-    x = Dense(10000,activation='relu')(x)
+    x = Dense(10,activation='relu')(x)
     x = Dense(100,activation='softmax')(x)
     m = Model(inp,x)
     m.compile(loss='sparse_categorical_crossentropy',optimizer='adam')
@@ -26,7 +26,8 @@ def get_model():
 print((X_train.shape, y_train.shape), (X_val.shape, y_val.shape))
 
 model = get_model()
-model.fit(X_train,y_train,validation_data=(X_val,y_val),epochs=5)
+model.fit(X_train,y_train,validation_data=(X_val,y_val),epochs=1)
+model.save_weights('temp_weights.h5')
 
 from sklearn.metrics import confusion_matrix,classification_report
 import seaborn as sns
